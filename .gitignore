@@ -1,0 +1,5 @@
+*.pyc
+codes.csv
+.idea
+run.py
+flask

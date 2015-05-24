@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+<h1>Choose a friend to eat with!</h1>
+<table class='table-condensed'>
+  {% for i, friend in flist.iterrows() %}
+    <tr>
+      <td><img class="img-circle" src={{friend.photo}}></td>
+      <td><h3>{{ friend.firstname }} {{ friend.lastname }}</h3><br>
+          <a href={{ friend.churl }} class="btn btn-primary">Choose</a></td>
+    </tr>
+  {% endfor %}
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<!--Status message updates-->
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-success" role="alert">{{ message }} </div>
+      {% endfor %}
+  {% endif %}
+{% endwith %}
+
+  <div class='jumbotron'>
+  {% if authurl %}
+    <h1>Please authenticate with <a href="{{ authurl }}">Foursquare</a> to use chooseeats!</h1>
+  {% else %}
+    <h1>How many in your party, {{ user }}?</h1> <br>
+    <a href='/results' class="btn btn-primary btn-large">Table for One</a>
+    <a href='/friends' class="btn btn-primary btn-large">Table for Two</a>
+  {% endif %}
+  </div>
+{% endblock %}
