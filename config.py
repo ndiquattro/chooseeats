@@ -1,3 +1,6 @@
+import os
+import csv
+
 WTF_CSRF_ENABLED = True
 with open('codes.csv', 'rb') as csvfile:
     codesf = csv.DictReader(csvfile)
@@ -6,7 +9,6 @@ with open('codes.csv', 'rb') as csvfile:
 SECRET_KEY = codes['secret2']
 
 # Database set-up
-import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
