@@ -1,4 +1,9 @@
 WTF_CSRF_ENABLED = True
+with open('codes.csv', 'rb') as csvfile:
+    codesf = csv.DictReader(csvfile)
+    for row in codesf:
+        codes = row
+SECRET_KEY = codes['secret2']
 
 # Database set-up
 import os
