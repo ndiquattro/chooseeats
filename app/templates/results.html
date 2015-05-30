@@ -19,19 +19,19 @@
   <table class = "table table-hover">
 	  <thead>
         <tr>
-          <th><h1>It has been awhile since you guys have gone to a...</th>
+          <th><h1>It has been awhile since you guys have gone to a...</h1></th>
           <th>{{ user }} last had...</th>
           <th>{{ user2 }} last had...</th>
         </tr>
       </thead>
     {% for idx, rtype in data.iterrows() %}
-    <tr>
-      <td><a class="btn" data-toggle="collapse" data-target="#viewdetails{{idx}}"><h2>{{ rtype.type }}</h2></a>
-              <p class="collapse" id="viewdetails{{idx}}">On average you like this type of restaurant {{ rtype.like_x*100 }}% of the time. {{user2}} likes it {{rtype.like_y*100}}% of the time.<br>
-              Your last visit was on {{ rtype.lastti_x }}. {{user2}}'s was on {{rtype.lastti_y}}</p></td>
-      <td><em>{{ rtype.tsince_x }}</em> days ago</td>
-      <td><em>{{ rtype.tsince_y }}</em> days ago</td>
-    </tr>
+        <tr>
+          <td><a class="btn" data-toggle="collapse" data-target="#viewdetails{{idx}}"><h2>{{ rtype.type }}</h2></a>
+                  <p class="collapse" id="viewdetails{{idx}}">On average you like this type of restaurant {{ rtype.like_x*100 }}% of the time. {{user2}} likes it {{rtype.like_y*100}}% of the time.<br>
+                  Your last visit was on {{ rtype.lastti_x }}. {{user2}}'s was on {{rtype.lastti_y}}</p></td>
+          <td><em>{{ rtype.tsince_x }}</em> days ago</td>
+          <td><em>{{ rtype.tsince_y }}</em> days ago</td>
+        </tr>
     {% endfor %}
     </table>
 {% endif %}
