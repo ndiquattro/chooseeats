@@ -15,5 +15,4 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 #    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 #else:
 SQLALCHEMY_DATABASE_URI = 'mysql://nickof4:mongotut@mysql.server/nickof4$ceatsdb'
-
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
