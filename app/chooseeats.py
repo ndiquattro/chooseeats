@@ -1,13 +1,18 @@
 import foursquare
 from datetime import datetime
-import csv
+import csv, os
 import pandas as pd
 import numpy as np
 
 # Set client & secret code
-redir = 'http://www.chooseeats.com/auth'
+if os.uname()[0] == 'Darwin':
+    redir = 'http://localhost:5000/auth'
+    codepath = 'codes.csv'
+else:
+    redir = 'http://www.chooseeats.com/auth'
+    codepath = '/home/nickof4/codes.csv'
 
-with open('/home/nickof4/codes.csv', 'rb') as csvfile:
+with open(codepath, 'rb') as csvfile:
     codesf = csv.DictReader(csvfile)
     for row in codesf:
         codes = row
