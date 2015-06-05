@@ -11,7 +11,7 @@
     {% endif %}
     <!-- Bootstrap -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">        
+    <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
     <!-- My custom css -->
     <link href="/static/css/whereeat.css" rel="stylesheet">
   </head>
@@ -19,7 +19,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
-    
+
   <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -34,7 +34,7 @@
           <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="/index">Home</a></li>
-            <li><a href="#about">About</a></li>
+            <li><a href="/about">About</a></li>
             {% if authurl %}
               <li><a href="{{ authurl }}">Authenticate with Foursquare</a></li>
             {% else %}

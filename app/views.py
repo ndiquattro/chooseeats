@@ -140,3 +140,7 @@ def deauth():
 
     # Redirect to home
     return redirect('/index')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
