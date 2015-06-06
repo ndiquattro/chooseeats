@@ -89,7 +89,7 @@ class usrinfo(object):
 
         # Convert to pandas and return
         cnames = ['id', 'firstname', 'lastname', 'photo', 'churl']
-        flist = pd.DataFrame(reflist, columns = cnames)
+        flist = pd.DataFrame(reflist, columns = cnames).sort('lastname')
         return flist
 
     # Get Checkins

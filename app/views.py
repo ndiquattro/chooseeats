@@ -143,4 +143,14 @@ def deauth():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    # Check if this person has authed
+    if 'userid' in session:
+        aurl = None
+    else:
+        auther = chooseeats.fourauther()
+        aurl = auther.aurl()
+        user = None
+        fname = None
+        nickname = None
+    return render_template('about.html',
+                            authurl = aurl)

@@ -1,38 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
 {% if not user2 %}
-	<table class="table table-hover">
-	<thead>
-	  <th><h1>Its been a while since you've been to a...</h1></th>
-	  <th>Last had...</th>
-	</thead>
-    {% for idx, rtype in data.iterrows() %}
-    <tr>
-      <td><a class="btn" data-toggle="collapse" data-target="#viewdetails{{idx}}"><h2>{{ rtype.type }}</h2></a>
-          <p class="collapse" id="viewdetails{{idx}}">On average you like this type of restaurant {{ rtype.like*100 }}% of the time.<br>
-                                               Your last visit was on {{ rtype.lastti }}</p></td>
-      <td><em>{{ rtype.tsince }}</em> days ago</td>
-    </tr>
-    {% endfor %}
-    </table>
+<div class ='col-md-6 col-md-offset-3'>
+	<div class="well well-lg myBackground">
+		<table class="table table-hover">
+		<thead>
+		  <th><h1>How about a...</h1></th>
+		  <th>Last had</th>
+		</thead>
+	    {% for idx, rtype in data.iterrows() %}
+	    <tr>
+	      <td class="vert-align">
+					<a class="btn" data-toggle="collapse" data-target="#viewdetails{{idx}}"><h3>{{ rtype.type }}</h3></a>
+	          <div class="collapse" id="viewdetails{{idx}}">
+							Your last visit was on {{ rtype.lastti }}.<br>
+							You like this type of restaurant {{ rtype.like*100 }}% of the time.
+						</div>
+				</td>
+	      <td class="vert-align"><em>{{ rtype.tsince }}</em> days ago</td>
+	    </tr>
+	    {% endfor %}
+	    </table>
+	</div>
+	<br><br><br>
+</div>
 {% else %}
-  <table class = "table table-hover">
+<div class ='col-md-6 col-md-offset-3'>
+	<div class="well well-lg myBackground">
+  <table class="table table-hover">
 	  <thead>
         <tr>
-          <th><h1>It has been awhile since you guys have gone to a...</h1></th>
-          <th>{{ user }} last had...</th>
-          <th>{{ user2 }} last had...</th>
+          <th><h1>How about a...</h1></th>
+          <th>{{ user }} had</th>
+          <th>{{ user2 }} had</th>
         </tr>
       </thead>
     {% for idx, rtype in data.iterrows() %}
         <tr>
-          <td><a class="btn" data-toggle="collapse" data-target="#viewdetails{{idx}}"><h2>{{ rtype.type }}</h2></a>
-                  <p class="collapse" id="viewdetails{{idx}}">On average you like this type of restaurant {{ rtype.like_x*100 }}% of the time. {{user2}} likes it {{rtype.like_y*100}}% of the time.<br>
-                  Your last visit was on {{ rtype.lastti_x }}. {{user2}}'s was on {{rtype.lastti_y}}</p></td>
-          <td><em>{{ rtype.tsince_x }}</em> days ago</td>
-          <td><em>{{ rtype.tsince_y }}</em> days ago</td>
+          <td class="vert-align">
+						<a class="btn" data-toggle="collapse" data-target="#viewdetails{{idx}}"><h3>{{ rtype.type }}</h3></a>
+              <div class="collapse" id="viewdetails{{idx}}">
+								Your last visit was on {{ rtype.lastti_x }}.<br>
+								{{user2}}'s last visit was on {{rtype.lastti_y}}<br><br>
+								You like this type of restaurant {{ rtype.like_x*100 }}% of the time.<br>
+								{{user2}} likes it {{rtype.like_y*100}}% of the time.
+							</div>
+					</td>
+          <td class="vert-align"><em>{{ rtype.tsince_x }}</em> days ago</td>
+          <td class="vert-align"><em>{{ rtype.tsince_y }}</em> days ago</td>
         </tr>
     {% endfor %}
     </table>
+	</div>
+	<br><br><br>
+</div>
 {% endif %}
 {% endblock %}

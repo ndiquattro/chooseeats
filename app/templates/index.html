@@ -8,14 +8,24 @@
       {% endfor %}
   {% endif %}
 {% endwith %}
+        <div class ='col-md-6 col-md-offset-3'>
+          <div class="text-center well well-lg myBackground">
+            <div class='text-center'>
+              {% if authurl %}
+                <h1>Please <a href="{{ authurl }}">authenticate</a> with Foursquare to use chooseeats!</h1>
+                <hr style="color: black;">
+                <h3><a href="/about">What is this?</a><h3>
 
-  <div class='jumbotron'>
-  {% if authurl %}
-    <h1>Please authenticate with <a href="{{ authurl }}">Foursquare</a> to use chooseeats!</h1>
-  {% else %}
-    <h1>How many in your party, {{ user }}?</h1> <br>
-    <a href='/results' class="btn btn-primary btn-large">Table for One</a>
-    <a href='/friends' class="btn btn-primary btn-large">Table for Two</a>
-  {% endif %}
-  </div>
+              {% else %}
+                <h1>How many in your party, {{ user }}?</h1> <br>
+                <a href='/results' class="btn btn-primary btn-large">Table for One</a>
+                <a href='/friends' class="btn btn-primary btn-large">Table for Two</a>
+                <br>
+                <div class="text-right">
+                <a href='/deauth'>I'm not {{ user }}!</a>
+              </div>
+              {% endif %}
+            </div>
+        </div>
+      </div>
 {% endblock %}

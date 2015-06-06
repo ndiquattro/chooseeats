@@ -1,15 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="jumbotron">
-<h1>Choose a friend to eat with!</h1>
-<table class='table-condensed'>
-  {% for i, friend in flist.iterrows() %}
-    <tr>
-      <td><img class="img-circle" src={{friend.photo}}></td>
-      <td><h3>{{ friend.firstname }} {{ friend.lastname }}</h3><br>
-          <a href={{ friend.churl }} class="btn btn-primary">Choose</a></td>
-    </tr>
-  {% endfor %}
-</table>
+<div class ='col-md-6 col-md-offset-3'>
+	<div class="text-center well well-lg myBackground">
+    {% if flist.shape[0] == 0 %}
+      <h1>Friends need to authenticate with chooseeats too!</h1>
+    {% else %}
+      <h1>Choose a friend to eat with!</h1>
+      <div class="center-block">
+        <table class='table-condensed' width=100%>
+          {% for i, friend in flist.iterrows() %}
+            <tr>
+              <td><img class="img-circle" src={{friend.photo}}></td>
+              <td><h3>{{ friend.firstname }} {{ friend.lastname }}</h3><br>
+                  <a href={{ friend.churl }} class="btn btn-primary">Choose</a></td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    {% endif %}
+  </div>
+  <br><br><br>
 </div>
 {% endblock %}
