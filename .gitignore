@@ -3,3 +3,4 @@ codes.csv
 .idea
 run.py
 flask
+app.db
