@@ -23,19 +23,30 @@
   <!-- Navigation -->
   <nav class="navbar navbar-default navbar-inverse navbar-fixed-bottom">
     <div class="container-fluid">
-      <ul class="nav navbar-nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        {% if authurl %}
-          <li><a href="{{ authurl }}">Authenticate with Foursquare</a></li>
-        {% else %}
-          <li><a href="/results">Solo Eat</a></li>
-          <li><a href="/friends">Choose a Friend</a></li>
-        {% endif %}
-      </ul>
-      <a href="https://twitter.com/share" class="twitter-share-button navbar-right navbar-text" data-url="http://www.chooseeats.com" data-text="chooseeats.com: Eat with friends!" data-via="nickof4" data-size="small" data-related="nickof4">Tweet</a>
-      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-    </div>
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          {% if authurl %}
+            <li><a href="{{ authurl }}">Authenticate with Foursquare</a></li>
+          {% else %}
+            <li><a href="/results">Solo Eat</a></li>
+            <li><a href="/friends">Choose a Friend</a></li>
+          {% endif %}
+        </ul>
+        <a href="https://twitter.com/share" class="twitter-share-button navbar-right navbar-text" data-url="http://www.chooseeats.com" data-text="chooseeats.com: Eat with friends!" data-via="nickof4" data-size="small" data-related="nickof4">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        </div>
   </nav>
 
   <!-- Content -->
