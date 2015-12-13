@@ -1,6 +1,7 @@
 *.pyc
 codes.csv
 .idea
+secrets.yaml
 run.py
 flask
 app.db

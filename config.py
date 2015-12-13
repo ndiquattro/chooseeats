@@ -1,5 +1,5 @@
 import os
-import csv
+import yaml
 
 # Database set-up
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -17,8 +17,13 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 
 # Session set-up
 WTF_CSRF_ENABLED = True
-with open(codepath, 'rb') as csvfile:
-    codesf = csv.DictReader(csvfile)
-    for row in codesf:
-        codes = row
-SECRET_KEY = codes['secret2']
+
+# API keys setup
+with open('secrets.yaml', 'r') as f:
+    secrets = yaml.load(f)
+
+FSCL = secrets['fscid']
+FSST = secrets['fssct']
+
+# Forms setup
+SECRET_KEY = secrets['forms']
