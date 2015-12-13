@@ -1,7 +1,9 @@
 import os
 import foursquare
-import chooseeats
+from app import chooseeats
 from app import db, models
+
+from config import FSST, FSCL
 
 if os.uname()[0] == 'Darwin':
     redir = 'http://localhost:5000/auth'

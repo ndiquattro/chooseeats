@@ -1,11 +1,11 @@
 # Flask Imports
 from flask import flash, redirect, request, session
-from app import app, db, models
+from . import auth
 import ahelper
 
 
-@app.route('/')
-def auth():
+@auth.route('/')
+def authuser():
     # Auth User
     fsauther = ahelper.FourAuther()
     uinfo = fsauther.auth(request.args.get('code'))
@@ -15,20 +15,13 @@ def auth():
 
     # Make alert
     fullname = '{} {}'.format(uinfo['firstName'], uinfo['lastName'])
-    flash('Thanks! You have been autenticated as %s' % fullname)
+    flash('Thanks! You have been authenticated as %s' % fullname)
 
     return redirect('/index')
 
 
-@app.route('/deauth')
-def deauth():
-    # Grab userid
-    usrid = session['userid']
-
-    # Delete from database
-    curusr = models.User.query.filter_by(userid=usrid).first()
-    db.session.delete(curusr)
-    db.session.commit()
+@auth.route('/logout')
+def logout():
 
     # Remove session cookie
     session.clear()

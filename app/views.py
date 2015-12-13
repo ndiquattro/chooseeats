@@ -1,5 +1,6 @@
 # API Imports
 import chooseeats
+from auth import ahelper
 
 # Flask Imports
 from flask import render_template, flash, redirect, request, session
@@ -22,7 +23,7 @@ def index():
             return redirect('/index')
         aurl = None
     else:
-        auther = chooseeats.fourauther()
+        auther = ahelper.FourAuther()
         aurl = auther.aurl()
         user = None
         fname = None

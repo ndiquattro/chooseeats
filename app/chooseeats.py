@@ -3,17 +3,20 @@ from datetime import datetime
 import csv, os
 import pandas as pd
 import numpy as np
+from config import FSCL, FSST
+
+if os.uname()[0] == 'Darwin':
+    redir = 'http://localhost:5000/auth'
+else:
+    redir = 'http://www.chooseeats.com/auth'
 
 
-
-
-# Infograbber
 class usrinfo(object):
     # initialize
     def __init__(self, token):
         # Initiate Client
-        self.client = foursquare.Foursquare(client_id=cid,
-                                            client_secret=csc,
+        self.client = foursquare.Foursquare(client_id=FSCL,
+                                            client_secret=FSST,
                                             redirect_uri=redir,
                                             access_token=token)
 
