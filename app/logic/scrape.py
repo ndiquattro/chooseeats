@@ -63,7 +63,7 @@ class UsrInfo(object):
             for f in flist:
                 purl = '%s128x128%s' % (f['photo']['prefix'],
                                         f['photo']['suffix'])
-                churl = '/results?fid=%s' % (f['id'])
+                churl = '/results/friend/%s' % (f['id'])
                 reflist.append([int(f['id']),
                                 f['firstName'],
                                 f['lastName'],

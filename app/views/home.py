@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, redirect, session
+from flask import Blueprint, render_template, redirect, session
 from app import db
 from ..logic import authing, scrape
 from ..database import models
