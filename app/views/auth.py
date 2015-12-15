@@ -1,13 +1,15 @@
 # Flask Imports
-from flask import flash, redirect, request, session
-from . import auth
-import ahelper
+from flask import Blueprint, flash, redirect, request, session
+from ..logic import authing
+
+# Initiate Blueprint
+auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 
 @auth.route('/')
 def authuser():
     # Auth User
-    fsauther = ahelper.FourAuther()
+    fsauther = authing.FourAuther()
     uinfo = fsauther.auth(request.args.get('code'))
 
     # Save session

@@ -1,8 +1,8 @@
 import os
 import foursquare
-from app import chooseeats
-from app import db, models
-
+import scrape
+from app import db
+from ..database import models
 from config import FSST, FSCL
 
 if os.uname()[0] == 'Darwin':
@@ -37,8 +37,8 @@ class FourAuther(object):
         token = self.auther.oauth.get_token(str(code))
 
         # Get info we want to save
-        infograb = chooseeats.usrinfo(token)
-        uinfo = infograb.getUserInfo()
+        infograb = scrape.UsrInfo(token)
+        uinfo = infograb.get_userinfo()
 
         # Check if we've already authed before
         curusr = models.User.query.filter_by(userid=uinfo['id']).first()

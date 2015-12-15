@@ -1,7 +1,10 @@
-from flask import flash, redirect, request, session, url_for, render_template
-from . import results
-import rhelper
-from app import models
+from flask import (Blueprint, redirect, request, session, url_for,
+                   render_template)
+from ..logic import scrape
+from ..database import models
+
+# Register blueprint
+results = Blueprint('results', __name__, url_prefix='/results')
 
 
 @results.route('/')
@@ -13,8 +16,8 @@ def solo_results():
         fulnm = '{} {}'.format(curusr.firstname, curusr.lastname)
 
         # Calculate values
-        usr1 = chooseeats.usrinfo(curusr.token)
-        rtab = usr1.getChecks()
+        usr1 = scrape.UsrInfo(curusr.token)
+        rtab = usr1.get_checksins()
 
         # Return table
         return render_template('results.html',

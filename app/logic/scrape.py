@@ -76,13 +76,13 @@ class UsrInfo(object):
         return flist
 
     # Get Checkins
-    def getChecks(self):
+    def get_checksins(self):
 
         # Grab data
         checkins = self.client.users.checkins()['checkins']['items']
 
         # Venue data
-        ventype = self.getFoodCats()
+        ventype = self.get_foodcats()
 
         # Take out info we want
         cattime = []
@@ -120,31 +120,3 @@ class UsrInfo(object):
 
         # Return
         return cattime
-
-
-# Analysis class
-class analyze(object):
-    def __init__(self):
-        pass
-
-    # Time calcer
-    def timeFinder(self, times):
-        # Calculate
-        tscore = times.mean(axis=1) * (times.max(axis=1) / times.min(axis=1))
-        return tscore
-
-    # Compare Histories
-    def compHists(self, usr1, usr2):
-        # Inner join to get only restaurants both have been to
-        matched = usr1.merge(usr2, on='type')
-
-        # Calculate mean time visited and like percentage
-        matched['meantime'] = matched[['time_x', 'time_y']].mean(axis=1)
-        matched['meanlike'] = matched[['like_x', 'like_y']].mean(axis=1)
-        matched['recenyscr'] = self.timeFinder(matched[['time_x', 'time_y']])
-        matched['reccoscr'] = matched.recenyscr * matched.meanlike
-
-        # Sort by time then likes
-        matched.sort('reccoscr')
-
-        return matched
