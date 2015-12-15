@@ -39,15 +39,26 @@ class FourAuther(object):
         # Get info we want to save
         infograb = scrape.UsrInfo(token)
         uinfo = infograb.get_userinfo()
+        finfo = infograb.get_friends()
 
         # Check if we've already authed before
         curusr = models.User.query.filter_by(userid=uinfo['id']).first()
         if not curusr:
+            # Add user info
             newu = models.User(firstname=uinfo['firstName'],
                                lastname=uinfo['lastName'],
                                userid=uinfo['id'],
                                token=token)
             db.session.add(newu)
+
+            # Add friends
+            for friend in finfo.iterrows():
+                newf = models.Friends(fuid=friend[1]['id'],
+                                      prime=newu)
+
+                db.session.add(newf)
+
+            # Commit to DB
             db.session.commit()
 
         return uinfo
