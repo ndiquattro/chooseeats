@@ -22,7 +22,7 @@
                 <a href='/friends' class="btn btn-primary btn-large">Table for Two</a>
                 <br>
                 <div class="text-right">
-                <a href='/deauth'>I'm not {{ user }}!</a>
+                <a href={{ url_for('auth.logout') }}>I'm not {{ user }}!</a>
               </div>
               {% endif %}
             </div>
