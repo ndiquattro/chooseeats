@@ -11,6 +11,7 @@ def authuser():
     uinfo = fsauther.auth(request.args.get('code'))
 
     # Save session
+    session.permanent = True
     session['userid'] = uinfo['id']
 
     # Make alert

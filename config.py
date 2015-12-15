@@ -27,3 +27,4 @@ FSST = secrets['fssct']
 
 # Forms setup
 SECRET_KEY = secrets['forms']
+

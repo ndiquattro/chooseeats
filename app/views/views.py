@@ -12,28 +12,26 @@ from app import app, db, models
 def index():
     # Check if this person has authed
     if 'userid' in session:
+        # Look up user info
         curusr = models.User.query.filter_by(userid=session['userid']).first()
-        try:
-            fname = '{} {}'.format(curusr.firstname, curusr.lastname)
-            nickname = curusr.firstname
-            session['fullname'] = fname
-            session['firstname'] = nickname
-        except:
-            session.clear()
-            return redirect('/index')
-        aurl = None
+
+        # Pull out info we want
+        fname = '{} {}'.format(curusr.firstname, curusr.lastname)
+        nickname = curusr.firstname
+
+        # Return Template
+        return render_template('index.html',
+                               title='Home',
+                               user=nickname,
+                               fulnm=fname)
     else:
+        # Send auth URL
         auther = ahelper.FourAuther()
         aurl = auther.aurl()
-        user = None
-        fname = None
-        nickname = None
 
-    return render_template('index.html',
-                           title='Home',
-                           user=nickname,
-                           fulnm=fname,
-                           authurl=aurl)
+        return render_template('index.html',
+                               title='Home',
+                               authurl=aurl)
 
 
 @app.route('/friends')
@@ -61,36 +59,7 @@ def friends():
                            flist=finfo)
 
 
-@app.route('/results')
-def results():
-    # Get user info
-    curusr = models.User.query.filter_by(userid=session['userid']).first()
-    usr2 = None
 
-    # Calculate values
-    usr1 = chooseeats.usrinfo(curusr.token)
-    rtab = usr1.getChecks()
-
-    # Check if we're comparing or going solo
-    friend = request.args.get('fid', '')
-    if friend:
-        # Get friend info
-        fusr = models.User.query.filter_by(userid=friend).first()
-        usr2 = fusr.firstname
-        frinfo = chooseeats.usrinfo(fusr.token)
-        finfo = frinfo.getChecks()
-
-        # Compare results
-        analyzer = chooseeats.analyze()
-        rtab = analyzer.compHists(rtab, finfo)
-
-    # Return table
-    return render_template('results.html',
-                           title='Results',
-                           user=session['firstname'],
-                           fulnm=session['fullname'],
-                           user2=usr2,
-                           data=rtab)
 
 
 

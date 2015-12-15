@@ -1,6 +1,6 @@
 import foursquare
 from datetime import datetime
-import csv, os
+import os
 import pandas as pd
 import numpy as np
 from config import FSCL, FSST
@@ -11,8 +11,8 @@ else:
     redir = 'http://www.chooseeats.com/auth'
 
 
-class usrinfo(object):
-    # initialize
+class UsrInfo(object):
+    # Initialize
     def __init__(self, token):
         # Initiate Client
         self.client = foursquare.Foursquare(client_id=FSCL,
@@ -21,7 +21,10 @@ class usrinfo(object):
                                             access_token=token)
 
     # Get Categories
-    def getFoodCats(self):
+    def get_foodcats(self):
+        """
+        Grabs list of restaurant categories from FourSquare.
+        """
         # Grab food categories
         fcats = self.client.venues.categories()['categories'][3]['categories']
 
@@ -34,15 +37,21 @@ class usrinfo(object):
         return rtypes
 
     # Get User info
-    def getUserInfo(self):
+    def get_userinfo(self):
+        """
+        Gets User information from Foursquare.
+        """
         uinfo = self.client.users()['user']
 
         return uinfo
 
     # Get friends
-    def getFriends(self):
+    def get_friends(self):
+        """
+        Get list of current users friends.
+        """
         # Grab data
-        friends = self.getUserInfo()['friends']['groups']
+        friends = self.get_userinfo()['friends']['groups']
 
         # Loop and get
         reflist = []
