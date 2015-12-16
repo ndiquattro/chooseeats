@@ -7,13 +7,24 @@ class User(db.Model):
     lastname = db.Column(db.String(64), index=True, unique=False)
     userid = db.Column(db.Integer, index=True, unique=True)
     token = db.Column(db.String(120), index=True, unique=True)
-    friends = db.relationship('Friends', backref='prime', lazy='dynamic')
 
     def __repr__(self):
         return '<User %r>' % self.firstname
 
+    @staticmethod
+    def add_user(uinfo):
+        newu = User(uinfo)
+        db.session.add(newu)
+        db.session.commit()
 
-class Friends(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    fuid = db.Column(db.Integer, index=True, unique=False)
-    primeid = db.Column(db.Integer, db.ForeignKey('user.id'))
+    @staticmethod
+    def lookup_user(uid):
+        return User.query.filter_by(userid=uid).first()
+
+    @staticmethod
+    def users_list():
+        # Query DB
+        ausers = User.query.with_entities(User.userid)
+
+        # Return list
+        return [uid[0] for uid in ausers]

@@ -1,7 +1,6 @@
 import os
 import foursquare
 import scrape
-from app import db
 from ..database import models
 from config import FSST, FSCL
 
@@ -39,26 +38,17 @@ class FourAuther(object):
         # Get info we want to save
         infograb = scrape.UsrInfo(token)
         uinfo = infograb.get_userinfo()
-        finfo = infograb.get_friends()
+        print uinfo
 
         # Check if we've already authed before
-        curusr = models.User.query.filter_by(userid=uinfo['id']).first()
+        curusr = models.User.lookup_user(uinfo['id'])
         if not curusr:
             # Add user info
-            newu = models.User(firstname=uinfo['firstName'],
-                               lastname=uinfo['lastName'],
-                               userid=uinfo['id'],
-                               token=token)
-            db.session.add(newu)
+            uinfo = {'firstname': uinfo['firstName'],
+                     'lastname': uinfo['lastName'],
+                     'userid': uinfo['id'],
+                     'token': token}
 
-            # Add friends
-            for friend in finfo.iterrows():
-                newf = models.Friends(fuid=friend[1]['id'],
-                                      prime=newu)
-
-                db.session.add(newf)
-
-            # Commit to DB
-            db.session.commit()
+            models.User.add_user(uinfo)
 
         return uinfo
