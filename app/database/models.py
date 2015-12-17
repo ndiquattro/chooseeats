@@ -13,8 +13,8 @@ class User(db.Model):
 
     @staticmethod
     def add_user(uinfo):
-        newu = User(uinfo)
-        db.session.add(newu)
+        # newu = User(uinfo)
+        db.session.add(User(**uinfo))
         db.session.commit()
 
     @staticmethod

@@ -38,17 +38,16 @@ class FourAuther(object):
         # Get info we want to save
         infograb = scrape.UsrInfo(token)
         uinfo = infograb.get_userinfo()
-        print uinfo
 
         # Check if we've already authed before
         curusr = models.User.lookup_user(uinfo['id'])
         if not curusr:
             # Add user info
-            uinfo = {'firstname': uinfo['firstName'],
-                     'lastname': uinfo['lastName'],
-                     'userid': uinfo['id'],
-                     'token': token}
+            uinfod = {'firstname': uinfo['firstName'],
+                      'lastname': uinfo['lastName'],
+                      'userid': uinfo['id'],
+                      'token': token}
 
-            models.User.add_user(uinfo)
+            models.User.add_user(uinfod)
 
         return uinfo
