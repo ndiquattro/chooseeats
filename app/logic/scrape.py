@@ -3,6 +3,7 @@ from datetime import datetime
 import os
 import pandas as pd
 import numpy as np
+from ..database import models
 from config import FSCL, FSST
 
 if os.uname()[0] == 'Darwin':
@@ -50,8 +51,11 @@ class UsrInfo(object):
         """
         Get list of current users friends.
         """
-        # Grab data
+        # Scrape data
         friends = self.get_userinfo()['friends']['groups']
+
+        # Get authed IDs
+        ausers = models.User.users_list()
 
         # Loop and get
         reflist = []
@@ -61,14 +65,16 @@ class UsrInfo(object):
 
             # Get friend info
             for f in flist:
-                purl = '%s128x128%s' % (f['photo']['prefix'],
-                                        f['photo']['suffix'])
-                churl = '/results?fid=%s' % (f['id'])
-                reflist.append([int(f['id']),
-                                f['firstName'],
-                                f['lastName'],
-                                purl,
-                                churl])
+                # Check if friend is Authed
+                if int(f['id']) in ausers:
+                    purl = '%s128x128%s' % (f['photo']['prefix'],
+                                            f['photo']['suffix'])
+                    churl = '/results/friend/%s' % (f['id'])
+                    reflist.append([int(f['id']),
+                                    f['firstName'],
+                                    f['lastName'],
+                                    purl,
+                                    churl])
 
         # Convert to pandas and return
         cnames = ['id', 'firstname', 'lastname', 'photo', 'churl']
@@ -79,7 +85,8 @@ class UsrInfo(object):
     def get_checksins(self):
 
         # Grab data
-        checkins = self.client.users.checkins()['checkins']['items']
+        checkins = self.client.users.checkins(params={'limit': 250}
+                                              )['checkins']['items']
 
         # Venue data
         ventype = self.get_foodcats()

@@ -1,5 +1,5 @@
 # Flask Imports
-from flask import Blueprint, flash, redirect, request, session
+from flask import Blueprint, flash, redirect, request, session, url_for
 from ..logic import authing
 
 # Initiate Blueprint
@@ -20,7 +20,7 @@ def authuser():
     fullname = '{} {}'.format(uinfo['firstName'], uinfo['lastName'])
     flash('Thanks! You have been authenticated as %s' % fullname)
 
-    return redirect('/index')
+    return redirect(url_for('home.index'))
 
 
 @auth.route('/logout')
@@ -30,4 +30,4 @@ def logout():
     session.clear()
 
     # Redirect to home
-    return redirect('/index')
+    return redirect(url_for('home.index'))

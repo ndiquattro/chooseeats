@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, flash, redirect, session
-from app import db
+from flask import Blueprint, render_template, redirect, session, url_for
 from ..logic import authing, scrape
 from ..database import models
 
@@ -13,7 +12,7 @@ def index():
     # Check if this person has authed
     if 'userid' in session:
         # Look up user info
-        curusr = models.User.query.filter_by(userid=session['userid']).first()
+        curusr = models.User.lookup_user(session['userid'])
 
         # Pull out info we want
         fname = '{} {}'.format(curusr.firstname, curusr.lastname)
@@ -39,21 +38,12 @@ def friends():
     # Check if authed
     if 'userid' in session:
         # Look up user
-        curusr = models.User.query.filter_by(userid=session['userid']).first()
+        curusr = models.User.lookup_user(session['userid'])
         fname = '{} {}'.format(curusr.firstname, curusr.lastname)
-
-        # Get list of auth'd IDs
-        authids = []
-        uids = db.session.query(models.User.userid)
-        for u in uids:
-            authids.append(u[0])
 
         # Find friends
         usr1 = scrape.UsrInfo(curusr.token)
         finfo = usr1.get_friends()
-
-        # Keep friends who have authed
-        finfo = finfo[finfo['id'].isin(authids)]
 
         return render_template('friends.html',
                                title='Friends',
@@ -61,7 +51,7 @@ def friends():
                                fulnm=fname,
                                flist=finfo)
     else:
-        redirect('/')
+        redirect(url_for('home.index'))
 
 
 @home.route('/about')

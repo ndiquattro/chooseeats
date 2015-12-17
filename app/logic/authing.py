@@ -1,7 +1,6 @@
 import os
 import foursquare
 import scrape
-from app import db
 from ..database import models
 from config import FSST, FSCL
 
@@ -41,13 +40,14 @@ class FourAuther(object):
         uinfo = infograb.get_userinfo()
 
         # Check if we've already authed before
-        curusr = models.User.query.filter_by(userid=uinfo['id']).first()
+        curusr = models.User.lookup_user(uinfo['id'])
         if not curusr:
-            newu = models.User(firstname=uinfo['firstName'],
-                               lastname=uinfo['lastName'],
-                               userid=uinfo['id'],
-                               token=token)
-            db.session.add(newu)
-            db.session.commit()
+            # Add user info
+            uinfod = {'firstname': uinfo['firstName'],
+                      'lastname': uinfo['lastName'],
+                      'userid': uinfo['id'],
+                      'token': token}
+
+            models.User.add_user(uinfod)
 
         return uinfo
