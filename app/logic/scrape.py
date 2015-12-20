@@ -86,7 +86,7 @@ class UsrInfo(object):
     def get_checksins(self):
 
         # Grab data
-        cutoff = datetime.now() - timedelta(days=90)
+        cutoff = datetime.now() - timedelta(days=1000)
         prms = {'limit': 250,
                 'afterTimestamp': int(time.mktime(cutoff.timetuple()))}
         checkins = self.client.users.checkins(params=prms)['checkins']['items']
