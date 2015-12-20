@@ -18,8 +18,8 @@
 
               {% else %}
                 <h1>How many in your party, {{ user }}?</h1> <br>
-                <a href='/results' class="btn btn-primary btn-large">Table for One</a>
-                <a href='/friends' class="btn btn-primary btn-large">Table for Two</a>
+                <a href={{ url_for('results.solo_results') }} class="btn btn-primary btn-large">Table for One</a>
+                <a href={{ url_for('home.friends') }} class="btn btn-primary btn-large">Table for Two</a>
                 <br>
                 <div class="text-right">
                 <a href={{ url_for('auth.logout') }}>I'm not {{ user }}!</a>

@@ -11,14 +11,29 @@
     {% endif %}
     <!-- Bootstrap -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
     <!-- My custom css -->
-    <link href="/static/css/chooseeats.css" rel="stylesheet">
+      <link href="/static/css/chooseeats.css" rel="stylesheet">
+		<style type="text/css">
+
+			.axis path,
+			.axis line {
+				fill: none;
+				stroke: black;
+				shape-rendering: crispEdges;
+			}
+
+			.axis text {
+				font-family: sans-serif;
+				font-size: 11px;
+			}
+
+		</style>
   </head>
   <body>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="/static/js/bootstrap.min.js"></script>
+  <script src="/static/js/d3/d3.js"></script>
 
   <!-- Navigation -->
   <nav class="navbar navbar-default navbar-inverse navbar-fixed-bottom">
@@ -35,18 +50,18 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
+          <li><a href={{ url_for('home.index') }}>Home</a></li>
+          <li><a href={{ url_for('home.about') }}>About</a></li>
           {% if authurl %}
             <li><a href="{{ authurl }}">Authenticate with Foursquare</a></li>
           {% else %}
-            <li><a href="/results">Solo Eat</a></li>
-            <li><a href="/friends">Choose a Friend</a></li>
+            <li><a href={{ url_for('results.solo_results') }}>Solo Eat</a></li>
+            <li><a href={{ url_for('home.friends') }}>Choose a Friend</a></li>
           {% endif %}
         </ul>
         <a href="https://twitter.com/share" class="twitter-share-button navbar-right navbar-text" data-url="http://www.chooseeats.com" data-text="chooseeats.com: Eat with friends!" data-via="nickof4" data-size="small" data-related="nickof4">Tweet</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-        </div>
+      </div>
   </nav>
 
   <!-- Content -->

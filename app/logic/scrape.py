@@ -1,5 +1,6 @@
 import foursquare
-from datetime import datetime
+from datetime import datetime, timedelta
+import time
 import os
 import pandas as pd
 import numpy as np
@@ -85,8 +86,10 @@ class UsrInfo(object):
     def get_checksins(self):
 
         # Grab data
-        checkins = self.client.users.checkins(params={'limit': 250}
-                                              )['checkins']['items']
+        cutoff = datetime.now() - timedelta(days=90)
+        prms = {'limit': 250,
+                'afterTimestamp': int(time.mktime(cutoff.timetuple()))}
+        checkins = self.client.users.checkins(params=prms)['checkins']['items']
 
         # Venue data
         ventype = self.get_foodcats()
@@ -106,11 +109,11 @@ class UsrInfo(object):
         cattime = pd.DataFrame(cattime, columns=cnames)
 
         # Only return food places
-        cattime = cattime[cattime.rid.isin(ventype.rid)]
+        checks = cattime[cattime.rid.isin(ventype.rid)]
 
         # Summarise by food type
-        cattime = cattime.groupby('type', as_index=False).agg({'like': np.mean,
-                                                               'time': max})
+        cattime = checks.groupby('type', as_index=False).agg({'like': np.mean,
+                                                             'time': max})
 
         # Format and sort
         def difftime(oldtime):
@@ -126,4 +129,4 @@ class UsrInfo(object):
         cattime = cattime.sort(['tsince', 'like'], ascending=[False, False])
 
         # Return
-        return cattime
+        return cattime, checks
