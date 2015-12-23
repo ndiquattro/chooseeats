@@ -14,22 +14,15 @@ def index():
         # Look up user info
         curusr = models.User.lookup_user(session['userid'])
 
-        # Pull out info we want
-        fname = '{} {}'.format(curusr.firstname, curusr.lastname)
-        nickname = curusr.firstname
-
         # Return Template
         return render_template('index.html',
-                               title='Home',
-                               user=nickname,
-                               fulnm=fname)
+                               uname=curusr.firstname)
     else:
         # Send auth URL
         auther = authing.FourAuther()
         aurl = auther.aurl()
 
         return render_template('index.html',
-                               title='Home',
                                authurl=aurl)
 
 
@@ -39,16 +32,12 @@ def friends():
     if 'userid' in session:
         # Look up user
         curusr = models.User.lookup_user(session['userid'])
-        fname = '{} {}'.format(curusr.firstname, curusr.lastname)
 
         # Find friends
         usr1 = scrape.UsrInfo(curusr.token)
         finfo = usr1.get_friends()
 
         return render_template('friends.html',
-                               title='Friends',
-                               user=curusr.firstname,
-                               fulnm=fname,
                                flist=finfo)
     else:
         redirect(url_for('home.index'))

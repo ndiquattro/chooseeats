@@ -1,25 +1,19 @@
 import foursquare
 from datetime import datetime, timedelta
 import time
-import os
 import pandas as pd
 import numpy as np
 from ..database import models
-from config import FSCL, FSST
-
-if os.uname()[0] == 'Darwin':
-    redir = 'http://localhost:5000/auth'
-else:
-    redir = 'http://www.chooseeats.com/auth'
+from flask import current_app as capp
 
 
 class UsrInfo(object):
     # Initialize
     def __init__(self, token):
         # Initiate Client
-        self.client = foursquare.Foursquare(client_id=FSCL,
-                                            client_secret=FSST,
-                                            redirect_uri=redir,
+        self.client = foursquare.Foursquare(client_id=capp.config['FSCL'],
+                                            client_secret=capp.config['FSCL'],
+                                            redirect_uri=capp.config['REDIR'],
                                             access_token=token)
 
     # Get Categories

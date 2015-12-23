@@ -1,31 +1,31 @@
 {% extends "base.html" %}
+{% block title %}Welcome to chooseeats!{% endblock %}
 {% block content %}
+
 <!--Status message updates-->
 {% with messages = get_flashed_messages() %}
   {% if messages %}
       {% for message in messages %}
-        <div class="alert alert-success" role="alert">{{ message }} </div>
+        <div class="alert alert-success" role="alert">{{ message }}</div>
       {% endfor %}
   {% endif %}
 {% endwith %}
-        <div class ='col-md-6 col-md-offset-3'>
-          <div class="text-center well well-lg myBackground">
-            <div class='text-center'>
-              {% if authurl %}
-                <h1>Please <a href="{{ authurl }}">authenticate</a> with Foursquare to use chooseeats!</h1>
-                <hr style="color: black;">
-                <h3><a href="/about">What is this?</a><h3>
 
-              {% else %}
-                <h1>How many in your party, {{ user }}?</h1> <br>
-                <a href={{ url_for('results.solo_results') }} class="btn btn-primary btn-large">Table for One</a>
-                <a href={{ url_for('home.friends') }} class="btn btn-primary btn-large">Table for Two</a>
-                <br>
-                <div class="text-right">
-                <a href={{ url_for('auth.logout') }}>I'm not {{ user }}!</a>
-              </div>
-              {% endif %}
+<div class ='col-md-6 col-md-offset-3'>
+    <div class="text-center well well-lg myBackground">
+        {% if authurl %}
+            <h1>Please <a href="{{ authurl }}">authenticate</a> with Foursquare to use chooseeats!</h1>
+            <hr style="color: black;">
+            <h3><a href="/about">What is this?</a></h3>
+        {% else %}
+            <h1>How many in your party, {{ uname }}?</h1> <br>
+            <a href={{ url_for('results.solo_results') }} class="btn btn-primary btn-large">Table for One</a>
+            <a href={{ url_for('home.friends') }} class="btn btn-primary btn-large">Table for Two</a>
+            <br>
+            <div class="text-right">
+                <a href={{ url_for('auth.logout') }}>I'm not {{ uname }}!</a>
             </div>
-        </div>
-      </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

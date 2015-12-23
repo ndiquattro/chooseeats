@@ -1,13 +1,7 @@
-import os
 import foursquare
 import scrape
 from ..database import models
-from config import FSST, FSCL
-
-if os.uname()[0] == 'Darwin':
-    redir = 'http://localhost:5000/auth'
-else:
-    redir = 'http://www.chooseeats.com/auth'
+from flask import current_app as capp
 
 
 # Auther Class
@@ -17,9 +11,9 @@ class FourAuther(object):
     """
     def __init__(self):
         # Initiate client
-        self.auther = foursquare.Foursquare(client_id=FSCL,
-                                            client_secret=FSST,
-                                            redirect_uri=redir)
+        self.auther = foursquare.Foursquare(client_id=capp.config['FSCL'],
+                                            client_secret=capp.config['FSST'],
+                                            redirect_uri=capp.config['REDIR'])
 
     def aurl(self):
         """
